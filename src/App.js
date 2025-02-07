@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import Navbar from './Component/Navbar';
 import './App.css';
+import React, { Component } from 'react'
+import News from './Component/News';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default class App extends Component {
+  pageSize = 5;
+  apiKey = '9356a2341b1c4aa399cf6765aa7728cc';
+  state = {
+    progress : 0,
+  }
+
+    setProgress = (progress) => {
+      this.setState({progress : progress})
+    }
+  render() {
+    return (
+      <div>
+       <Router>
+      <Navbar />
+      <LoadingBar
+        height={3}
+        color="#f11946"
+        progress={this.state.progress}
+        
+      />
+      <Routes>
+      <Route path="/" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="general" pageSize ={this.pageSize} category="General" />} />
+        <Route path="/sports" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="sports" pageSize ={this.pageSize} category="Sports" />} />
+        <Route path="/science" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="science" pageSize ={this.pageSize} category="Science" />} />
+        <Route path="/general" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="general" pageSize ={this.pageSize} category="General" />} />
+        <Route path="/health" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="health" pageSize ={this.pageSize} category="Health" />} />
+        <Route path="/technology" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="technology" pageSize ={this.pageSize} category="Technology" />} />
+        <Route path="/entertainment" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="entertainment" pageSize ={this.pageSize} category="Entertainment" />} />
+        <Route path="/business" element={<News  setProgress = {this.setProgress} apiKey = {this.apiKey} key="business" pageSize ={this.pageSize} category="Business" />} />
+      </Routes>
+     </Router>
+      </div>
+    )
+  }
 }
-
-export default App;
